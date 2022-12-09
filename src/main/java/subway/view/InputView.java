@@ -29,7 +29,7 @@ public class InputView {
         return sc.nextLine().trim();
     }
 
-    public static String getLineMenu() {
+    public static String getLineCommand() {
         OutputView.printMenu("노선", true);
 
         return sc.nextLine().trim();

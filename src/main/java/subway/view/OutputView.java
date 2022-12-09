@@ -12,6 +12,10 @@ public class OutputView {
     private OutputView() {
     }
 
+    public static void customPrint(String content) {
+        System.out.println(System.lineSeparator() + content);
+    }
+
     public static void printMenu(String topic, boolean fullInquiryNeeded) {
 
         List<String> subMenu = new LinkedList<>(Arrays.asList(System.lineSeparator() + "## %s 관리 화면", "1. %s 등록", "2. %s 삭제", "3. %s 조회", "B. 돌아가기" + System.lineSeparator(), "## 원하는 기능을 선택하세요."));
@@ -25,7 +29,7 @@ public class OutputView {
     }
 
     public static void printError(String message) {
-        System.out.println(System.lineSeparator() + ERROR_PREFIX + message);
+        customPrint(ERROR_PREFIX + message);
     }
 
     public static void printSuccess(String target, String operation) {
@@ -33,7 +37,7 @@ public class OutputView {
     }
 
     public static void printInquiry(String target, List<String> names) {
-        System.out.printf("##%s 목록" + System.lineSeparator(), target);
+        System.out.printf(System.lineSeparator() + "##%s 목록" + System.lineSeparator(), target);
         for (String name : names) {
             System.out.println(SUCCESS_PREFIX + name);
         }

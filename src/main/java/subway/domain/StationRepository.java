@@ -15,32 +15,33 @@ public class StationRepository {
     }
 
     public static void addStation(Station station) {
-        try {
-            checkIfDuplicate(station);
-            stations.add(station);
-            OutputView.printSuccess("지하철 역", "등록");
-        } catch(RuntimeException e) {
-            OutputView.printError(e.getMessage());
-        }
+        stations.add(station);
     }
 
     public static boolean deleteStation(String name) {
         return stations.removeIf(station -> Objects.equals(station.getName(), name));
     }
 
-    private static void checkIfDuplicate(Station station) {
-        for (Station s : stations()) {
-            if (station.getName().equals(s.getName())) {
-                throw new RuntimeException("이미 등록된 역 이름입니다.");
-            }
+    public static void checkIfDuplicate(String name) {
+        if (findByName(name) != null) {
+            throw new RuntimeException("이미 등록된 역 이름입니다.");
         }
     }
 
     public static List<String> getAllNames() {
         List<String> names = new ArrayList<>();
-        for (Station s : stations) {
+        for (Station s : stations()) {
             names.add(s.getName());
         }
         return names;
+    }
+
+    public static Station findByName(String name) {
+        for (Station s : stations()) {
+            if (name.equals(s.getName())) {
+                return s;
+            }
+        }
+        return null;
     }
 }

@@ -465,20 +465,21 @@ public class StationRepository {
 <br>
 
 ## 🧾 기능 목록
-- [ ] Line
-  - [ ] 구간 길이 검사(2 이상)
-- [ ] LineRepository
-  - [ ] 이름으로 찾기
-  - [ ] Line 전체 조회
-- [ ] StationRepository
-  - [ ] 이름으로 찾기
-  - [ ] Station 전체 조회
+- [x] Line
+  - [x] 구간 길이 검사(2 이상)
+  - [x] 서로 다른 종착역 검사
+- [x] LineRepository
+  - [x] 이름으로 찾기
+  - [x] Line 전체 조회
+- [x] StationRepository
+  - [x] 이름으로 찾기
+  - [x] Station 전체 조회
 - [ ] 입력 기능
   - [x] 메인 화면 입력
-  - [ ] 노선 관리 화면 입력
-    - [ ] 노선 등록 입력
-    - [ ] 노선 조회 입력
-    - [ ] 노선 삭제 입력
+  - [x] 노선 관리 화면 입력
+    - [x] 노선 등록 입력
+    - [x] 노선 조회 입력
+    - [x] 노선 삭제 입력
   - [ ] 구간 관리 화면 입력
     - [ ] 구간 등록 입력
     - [ ] 구간 삭제 입력
