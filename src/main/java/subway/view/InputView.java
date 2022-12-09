@@ -35,18 +35,30 @@ public class InputView {
         return sc.nextLine().trim();
     }
 
-    public static String getSectionMenu() {
+    public static String getSectionCommand() {
         OutputView.printMenu("구간", false);
 
         return sc.nextLine().trim();
     }
 
     public static String getTargetName() {
+        String name = sc.nextLine().replaceAll(" ", "");
+        try {
+            validateNameLength(name, 2);
+            return name;
+        } catch (IllegalArgumentException e) {
+            OutputView.printError(e.getMessage());
+        }
         do {
-            String name = sc.nextLine().replaceAll(" ", "");
+        } while (true);
+    }
+
+    public static int getStationOrder() {
+        do {
+            String input = sc.nextLine().replaceAll(" ", "");
             try {
-                validateNameLength(name, 2);
-                return name;
+                validateNumeric(input);
+                return Integer.parseInt(input);
             } catch (IllegalArgumentException e) {
                 OutputView.printError(e.getMessage());
             }
@@ -56,6 +68,14 @@ public class InputView {
     private static void validateNameLength(String name, int length) {
         if (name.replaceAll(" ", "").length() < length) {
             throw new IllegalArgumentException(String.format("이름은 %d글자 이상이어야 합니다.", length));
+        }
+    }
+
+    private static void validateNumeric(String input) {
+        for (int i = 0; i < input.length(); i++) {
+            if (!Character.isDigit(input.charAt(i))) {
+                throw new IllegalArgumentException("숫자만 입력하셔야 합니다.");
+            }
         }
     }
 }

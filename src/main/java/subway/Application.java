@@ -1,5 +1,6 @@
 package subway;
 
+import java.util.Objects;
 import java.util.Scanner;
 import subway.domain.Line;
 import subway.domain.LineRepository;
@@ -34,9 +35,7 @@ public class Application {
                 continue;
             }
             if (Integer.parseInt(mainCommand) == SECTION) {
-                // 구간 등록
-                // 구간 삭제
-                System.out.println(InputView.getSectionMenu());
+                serveSectionMenu();
             }
         }
     }
@@ -92,12 +91,12 @@ public class Application {
                 String lastStationName = InputView.getTargetName();
 
                 Station firstStation = StationRepository.findByName(firstStationName);
-                if (firstStation == null) {
+                if (Objects.isNull(firstStation)) {
                     firstStation = new Station(firstStationName);
                     StationRepository.addStation(firstStation);
                 }
                 Station lastStation = StationRepository.findByName(lastStationName);
-                if (lastStation == null) {
+                if (Objects.isNull(lastStation)) {
                     lastStation = new Station(lastStationName);
                     StationRepository.addStation(lastStation);
                 }
@@ -123,6 +122,67 @@ public class Application {
             // 노선 조회
             if (Integer.parseInt(command) == INQUIRY) {
                 OutputView.printInquiry("노선", LineRepository.getAllNames());
+            }
+        }
+    }
+
+    private static void serveSectionMenu() {
+        while (true) {
+            String command = InputView.getSectionCommand();
+            if (command.equals("B")) {
+                return;
+            }
+            // 구간 등록
+            if (Integer.parseInt(command) == REGISTRATION) {
+                OutputView.customPrint("## 노선을 입력하세요.");
+                String lineName = InputView.getTargetName();
+                Line line = LineRepository.findByName(lineName);
+                if (Objects.isNull(line)) {
+                    OutputView.printError("등록된 노선의 이름을 입력하세요.");
+                    continue;
+                }
+
+                OutputView.customPrint("## 역이름을 입력하세요.");
+                String stationName = InputView.getTargetName();
+                try {
+                    line.checkDuplicateStationByName(stationName);
+                } catch (RuntimeException e) {
+                    OutputView.printError(e.getMessage());
+                    continue;
+                }
+                Station station = StationRepository.findByName(stationName);
+                if (Objects.isNull(station)) {
+                    station = new Station(stationName);
+                    StationRepository.addStation(station);
+                }
+
+                OutputView.customPrint("## 순서를 입력하세요.");
+                int stationOrder = InputView.getStationOrder();
+                line.insertStation(station, stationOrder);
+                continue;
+            }
+            // 구간 삭제
+            if (Integer.parseInt(command) == ELIMINATION) {
+                OutputView.customPrint("## 삭제할 구간의 노선을 입력하세요.");
+                String lineName = InputView.getTargetName();
+                Line line = LineRepository.findByName(lineName);
+                if (Objects.isNull(line)) {
+                    OutputView.printError("등록된 노선의 이름을 입력하세요.");
+                    continue;
+                }
+
+                OutputView.customPrint("## 삭제할 구간의 역을 입력하세요.");
+                String stationName = InputView.getTargetName();
+                if (Objects.isNull(line.findStationByName(stationName))) {
+                    OutputView.printError("해당 노선에 등록된 역의 이름을 입력하세요.");
+                    continue;
+                }
+
+                boolean isDeleted = line.deleteStationByName(stationName);
+                if (isDeleted) {
+                    OutputView.printSuccess("구간", "삭제");
+                }
+                continue;
             }
         }
     }

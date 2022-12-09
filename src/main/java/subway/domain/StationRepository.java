@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
-import subway.view.InputView;
-import subway.view.OutputView;
 
 public class StationRepository {
     private static final List<Station> stations = new ArrayList<>();
@@ -23,7 +21,7 @@ public class StationRepository {
     }
 
     public static void checkIfDuplicate(String name) {
-        if (findByName(name) != null) {
+        if (!Objects.isNull(findByName(name))) {
             throw new RuntimeException("이미 등록된 역 이름입니다.");
         }
     }

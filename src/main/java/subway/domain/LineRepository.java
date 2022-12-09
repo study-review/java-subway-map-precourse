@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
-import subway.view.OutputView;
 
 public class LineRepository {
     private static final List<Line> lines = new ArrayList<>();
@@ -22,7 +21,7 @@ public class LineRepository {
     }
 
     public static void checkIfDuplicate(String lineName) {
-        if (findByName(lineName) != null) {
+        if (!Objects.isNull(findByName(lineName))) {
             throw new RuntimeException("이미 등록된 노선 이름입니다.");
         }
     }
