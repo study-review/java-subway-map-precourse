@@ -18,7 +18,7 @@ public class InputView {
                 + "Q. 종료" + System.lineSeparator() + System.lineSeparator()
                 + "## 원하는 기능을 선택하세요.";
 
-        System.out.println(sb);
+        OutputView.customPrint(sb);
 
         return sc.nextLine().trim();
     }
@@ -41,20 +41,22 @@ public class InputView {
         return sc.nextLine().trim();
     }
 
-    public static String getTargetName() {
-        String name = sc.nextLine().replaceAll(" ", "");
-        try {
-            validateNameLength(name, 2);
-            return name;
-        } catch (IllegalArgumentException e) {
-            OutputView.printError(e.getMessage());
-        }
+    public static String getTargetName(String request) {
         do {
+            OutputView.customPrint(request);
+            String name = sc.nextLine().replaceAll(" ", "");
+            try {
+                validateNameLength(name, 2);
+                return name;
+            } catch (IllegalArgumentException e) {
+                OutputView.printError(e.getMessage());
+            }
         } while (true);
     }
 
-    public static int getStationOrder() {
+    public static int getStationOrder(String request) {
         do {
+            OutputView.customPrint(request);
             String input = sc.nextLine().replaceAll(" ", "");
             try {
                 validateNumeric(input);

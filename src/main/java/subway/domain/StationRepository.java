@@ -17,7 +17,6 @@ public class StationRepository {
     }
 
     public static void deleteStation(String name) {
-//        return stations.removeIf(station -> Objects.equals(station.getName(), name));
         Station station = findByName(name);
         if (Objects.isNull(station)) {
             throw new RuntimeException("등록된 역의 이름을 입력해주세요.");
@@ -49,5 +48,14 @@ public class StationRepository {
             }
         }
         return null;
+    }
+
+    public static Station getOrCreateStation(String name) {
+        Station station = findByName(name);
+        if (Objects.isNull(station)) {
+            station = new Station(name);
+            addStation(station);
+        }
+        return station;
     }
 }

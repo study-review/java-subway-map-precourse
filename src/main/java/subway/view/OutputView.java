@@ -3,6 +3,8 @@ package subway.view;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
+import subway.domain.Line;
+import subway.domain.LineRepository;
 
 public class OutputView {
 
@@ -38,6 +40,20 @@ public class OutputView {
 
     public static void printInquiry(String target, List<String> names) {
         System.out.printf(System.lineSeparator() + "##%s 목록" + System.lineSeparator(), target);
+        printAllNames(names);
+    }
+
+    public static void printSubwayMap() {
+        System.out.print(System.lineSeparator() + "## 지하철 노선도");
+        List<Line> lines = LineRepository.lines();
+        for (Line line : lines) {
+            customPrint(SUCCESS_PREFIX + line.getName());
+            System.out.println(SUCCESS_PREFIX + "---");
+            printAllNames(line.getAllStationNames());
+        }
+    }
+
+    private static void printAllNames(List<String> names) {
         for (String name : names) {
             System.out.println(SUCCESS_PREFIX + name);
         }

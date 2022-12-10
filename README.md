@@ -490,10 +490,10 @@ public class StationRepository {
     - [x] 역 삭제 입력
     - [x] 역 조회 입력
   - [x] 이름 글자수 검사(2글자 이상)
-- [ ] Application
-  - [ ] 메뉴별 동작
+- [x] Application
+  - [x] 메뉴별 동작
     - [x] 등록, 삭제, 조회
-    - [ ] 지하철 노선도 출력
+    - [x] 지하철 노선도 출력
     - [x] 예외 처리
       - [x] 역 이름 중복
       - [x] 구간 길이 2 미만

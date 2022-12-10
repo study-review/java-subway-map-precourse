@@ -1,5 +1,6 @@
 package subway.domain;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
@@ -62,5 +63,13 @@ public class Line {
         for (Station station : stations) {
             station.deleteLineNames(this.name);
         }
+    }
+
+    public List<String> getAllStationNames() {
+        List<String> names = new ArrayList<>();
+        for (Station station : stations) {
+            names.add(station.getName());
+        }
+        return names;
     }
 }
