@@ -497,7 +497,7 @@ public class StationRepository {
     - [x] 예외 처리
       - [x] 역 이름 중복
       - [x] 구간 길이 2 미만
-  - [x] 메인 화면, 서브 화면 루프/탈출
+  - [x] 메인 화면, 서브 화면 루프/탈출 
 
 ## 📝 License
 

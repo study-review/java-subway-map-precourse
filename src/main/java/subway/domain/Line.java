@@ -9,15 +9,12 @@ public class Line {
     private final String name;
     private final List<Station> stations = new LinkedList<>();
 
-    public Line(String name, Station firstStation, Station lastStation) {
-        if (firstStation == lastStation) {
-            throw new RuntimeException("서로 다른 종착역을 입력하세요.");
-        }
+    public Line(String name, Station ...stations) {
         this.name = name;
-        firstStation.addLineName(name);
-        lastStation.addLineName(name);
-        stations.add(firstStation);
-        stations.add(lastStation);
+        for (Station station : stations) {
+            station.addLineName(name);
+            this.stations.add(station);
+        }
     }
 
     public String getName() {

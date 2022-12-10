@@ -1,5 +1,8 @@
 package subway.controller;
 
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
 import subway.domain.Line;
 import subway.domain.LineRepository;
 import subway.domain.Station;
@@ -18,6 +21,11 @@ public class LineController {
 
         Station firstStation = StationRepository.getOrCreateStation(firstStationName);
         Station lastStation = StationRepository.getOrCreateStation(lastStationName);
+
+        if (firstStation == lastStation) {
+            OutputView.printError("서로 다른 종착역을 입력하세요.");
+            return;
+        }
 
         try {
             LineRepository.checkIfDuplicate(lineName);
