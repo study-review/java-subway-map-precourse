@@ -16,8 +16,16 @@ public class StationRepository {
         stations.add(station);
     }
 
-    public static boolean deleteStation(String name) {
-        return stations.removeIf(station -> Objects.equals(station.getName(), name));
+    public static void deleteStation(String name) {
+//        return stations.removeIf(station -> Objects.equals(station.getName(), name));
+        Station station = findByName(name);
+        if (Objects.isNull(station)) {
+            throw new RuntimeException("등록된 역의 이름을 입력해주세요.");
+        }
+        if (station.checkIfRegisteredInLine()) {
+            throw new RuntimeException("노선에 등록된 역은 삭제할 수 없습니다.");
+        }
+        stations.remove(station);
     }
 
     public static void checkIfDuplicate(String name) {

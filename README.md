@@ -471,8 +471,8 @@ public class StationRepository {
 - [x] LineRepository
   - [x] 이름으로 찾기
   - [x] Line 전체 조회
-- [] Station
-  - [] 등록된 노선 리스트
+- [x] Station
+  - [x] 등록된 노선 리스트
 - [x] StationRepository
   - [x] 이름으로 찾기
   - [x] Station 전체 조회

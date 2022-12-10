@@ -62,9 +62,11 @@ public class Application {
             // 역 삭제
             if (Integer.parseInt(command) == ELIMINATION) {
                 OutputView.customPrint("## 삭제할 역 이름을 입력하세요.");
-                boolean isDeleted = StationRepository.deleteStation(InputView.getTargetName());
-                if (isDeleted) {
+                try {
+                    StationRepository.deleteStation(InputView.getTargetName());
                     OutputView.printSuccess("지하철 역", "삭제");
+                } catch (RuntimeException e) {
+                    OutputView.printError(e.getMessage());
                 }
                 continue;
             }
@@ -113,9 +115,11 @@ public class Application {
             // 노선 삭제
             if (Integer.parseInt(command) == ELIMINATION) {
                 OutputView.customPrint("## 삭제할 노선 이름을 입력하세요.");
-                boolean isDeleted = LineRepository.deleteLineByName(InputView.getTargetName());
-                if (isDeleted) {
+                try {
+                    LineRepository.deleteLineByName(InputView.getTargetName());
                     OutputView.printSuccess("지하철 노선", "삭제");
+                } catch (RuntimeException e) {
+                    OutputView.printError(e.getMessage());
                 }
                 continue;
             }
@@ -171,18 +175,19 @@ public class Application {
                     continue;
                 }
 
-                OutputView.customPrint("## 삭제할 구간의 역을 입력하세요.");
-                String stationName = InputView.getTargetName();
-                if (Objects.isNull(line.findStationByName(stationName))) {
-                    OutputView.printError("해당 노선에 등록된 역의 이름을 입력하세요.");
+                if (!line.checkIfStationRemovable()) {
+                    OutputView.printError("노선에 포함된 역이 두 개 이하일 때는 구간을 제거할 수 없습니다.");
                     continue;
                 }
 
-                boolean isDeleted = line.deleteStationByName(stationName);
-                if (isDeleted) {
+                OutputView.customPrint("## 삭제할 구간의 역을 입력하세요.");
+                String stationName = InputView.getTargetName();
+                try {
+                    line.deleteStationByName(stationName);
                     OutputView.printSuccess("구간", "삭제");
+                } catch (RuntimeException e) {
+                    OutputView.printError(e.getMessage());
                 }
-                continue;
             }
         }
     }

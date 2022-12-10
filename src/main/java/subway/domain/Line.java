@@ -1,20 +1,22 @@
 package subway.domain;
 
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 
 public class Line {
-    private String name;
-    private List<Station> stations;
+    private final String name;
+    private final List<Station> stations = new LinkedList<>();
 
     public Line(String name, Station firstStation, Station lastStation) {
         if (firstStation == lastStation) {
             throw new RuntimeException("서로 다른 종착역을 입력하세요.");
         }
         this.name = name;
-        stations = new ArrayList<>(Arrays.asList(firstStation, lastStation));
+        firstStation.addLineName(name);
+        lastStation.addLineName(name);
+        stations.add(firstStation);
+        stations.add(lastStation);
     }
 
     public String getName() {
@@ -24,6 +26,7 @@ public class Line {
     // 추가 기능 구현
     public void insertStation(Station station, int order) {
         int index = Math.min(order - 1, stations.size());
+        station.addLineName(name);
         stations.add(index, station);
     }
 
@@ -42,14 +45,22 @@ public class Line {
         return null;
     }
 
-    public boolean deleteStationByName(String name) {
-        return stations.removeIf(station -> Objects.equals(station.getName(), name));
+    public boolean checkIfStationRemovable() {
+        return stations.size() > 2;
     }
 
-    public void printStations() {
-        for (Station station : stations) {
-            System.out.print(station.getName() + " ");
+    public void deleteStationByName(String name) {
+        Station station = findStationByName(name);
+        if (Objects.isNull(station)) {
+            throw new RuntimeException("해당 노선에 등록된 역의 이름을 입력하세요.");
         }
-        System.out.println();
+        station.deleteLineNames(this.name);
+        stations.remove(station);
+    }
+
+    public void dismissAllStations() {
+        for (Station station : stations) {
+            station.deleteLineNames(this.name);
+        }
     }
 }

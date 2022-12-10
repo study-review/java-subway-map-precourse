@@ -17,7 +17,12 @@ public class LineRepository {
     }
 
     public static boolean deleteLineByName(String name) {
-        return lines.removeIf(line -> Objects.equals(line.getName(), name));
+        Line line = findByName(name);
+        if (Objects.isNull(line)) {
+            throw new RuntimeException("등록된 노선의 이름을 입력하세요.");
+        }
+        line.dismissAllStations();
+        return lines.remove(line);
     }
 
     public static void checkIfDuplicate(String lineName) {
