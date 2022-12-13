@@ -47,11 +47,14 @@ public class Line {
         return stations.size() > 2;
     }
 
-    public void deleteStationByName(String name) {
-        Station station = findStationByName(name);
-        if (Objects.isNull(station)) {
+    public void checkRegisteredStationByName(String name) {
+        if (Objects.isNull(findStationByName(name))) {
             throw new RuntimeException("해당 노선에 등록된 역의 이름을 입력하세요.");
         }
+    }
+
+    public void deleteStationByName(String name) {
+        Station station = findStationByName(name);
         station.deleteLineNames(this.name);
         stations.remove(station);
     }

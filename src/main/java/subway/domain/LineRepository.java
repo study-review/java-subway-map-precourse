@@ -16,13 +16,13 @@ public class LineRepository {
         lines.add(line);
     }
 
-    public static boolean deleteLineByName(String name) {
+    public static void deleteLineByName(String name) {
         Line line = findByName(name);
         if (Objects.isNull(line)) {
             throw new RuntimeException("등록된 노선의 이름을 입력하세요.");
         }
         line.dismissAllStations();
-        return lines.remove(line);
+        lines.remove(line);
     }
 
     public static void checkIfDuplicate(String lineName) {

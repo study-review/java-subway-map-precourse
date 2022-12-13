@@ -48,6 +48,7 @@ public class SectionController {
 
         String stationName = InputView.getTargetName("## 삭제할 구간의 역을 입력하세요.");
         try {
+            line.checkRegisteredStationByName(stationName);
             line.deleteStationByName(stationName);
             OutputView.printSuccess("구간", "삭제");
         } catch (RuntimeException e) {
