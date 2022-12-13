@@ -1,7 +1,6 @@
 package subway;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Scanner;
 import subway.controller.LineController;
 import subway.controller.SectionController;

@@ -1,8 +1,5 @@
 package subway.controller;
 
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
 import subway.domain.Line;
 import subway.domain.LineRepository;
 import subway.domain.Station;
