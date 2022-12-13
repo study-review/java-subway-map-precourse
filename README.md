@@ -464,6 +464,41 @@ public class StationRepository {
   - [프리코스 과제 FAQ](https://github.com/woowacourse/woowacourse-docs/tree/master/precourse/faq) 문서를 참고하여 진행할 수 있다.
 <br>
 
+## 🧾 기능 목록
+- [x] Line
+  - [x] 구간 길이 검사(2 이상)
+  - [x] 서로 다른 종착역 검사
+- [x] LineRepository
+  - [x] 이름으로 찾기
+  - [x] Line 전체 조회
+- [x] Station
+  - [x] 등록된 노선 리스트
+- [x] StationRepository
+  - [x] 이름으로 찾기
+  - [x] Station 전체 조회
+- [x] 입력 기능
+  - [x] 메인 화면 입력
+  - [x] 노선 관리 화면 입력
+    - [x] 노선 등록 입력
+    - [x] 노선 조회 입력
+    - [x] 노선 삭제 입력
+  - [x] 구간 관리 화면 입력
+    - [x] 구간 등록 입력
+    - [x] 구간 삭제 입력
+  - [x] 역 관리 화면 입력
+    - [x] 역 등록 입력
+    - [x] 역 삭제 입력
+    - [x] 역 조회 입력
+  - [x] 이름 글자수 검사(2글자 이상)
+- [x] Application
+  - [x] 메뉴별 동작
+    - [x] 등록, 삭제, 조회
+    - [x] 지하철 노선도 출력
+    - [x] 예외 처리
+      - [x] 역 이름 중복
+      - [x] 구간 길이 2 미만
+  - [x] 메인 화면, 서브 화면 루프/탈출 
+
 ## 📝 License
 
 This project is [MIT](https://github.com/woowacourse/java-subway-map-precourse/blob/master/LICENSE.md) licensed.
