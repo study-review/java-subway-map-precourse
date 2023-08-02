@@ -144,6 +144,8 @@ public class Application {
         } while (!command.equalsIgnoreCase(BACK));
     }
 
+    //test
+
     private static void serveSectionMenu() throws IOException {
         String command;
         int sectionCommand;
