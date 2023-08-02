@@ -16,7 +16,41 @@ public class LineRepository {
         lines.add(line);
     }
 
-    public static boolean deleteLineByName(String name) {
-        return lines.removeIf(line -> Objects.equals(line.getName(), name));
+    public static void deleteLineByName(String name) {
+        Line line = findByName(name);
+
+        if (Objects.isNull(line)) {
+            throw new RuntimeException("등록된 노선의 이름을 입력하세요. ");
+        }
+
+        line.dismissAllStations();
+        lines.remove(line);
+    }
+
+    public static void checkIfDuplicate(String lineName) {
+
+        if (!Objects.isNull(findByName(lineName))) {
+            throw new RuntimeException("이미 등록된 노선 이름입니다. ");
+        }
+    }
+
+    public static Line findByName(String name) {
+        for (Line line : lines()) {
+            if (name.equals(line.getName())) {
+                return line;
+            }
+        }
+
+        return null;
+    }
+
+    public static List<String> getAllNames() {
+        List<String> names = new ArrayList<>();
+
+        for (Line line : lines()) {
+            names.add(line.getName());
+        }
+
+        return names;
     }
 }
